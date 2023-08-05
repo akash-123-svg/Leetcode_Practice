@@ -28,10 +28,19 @@ public:
         }
         return dp[n];
     }
+    int solveOpt(int n){
+        if(n<=1) return 1;
+        int sum=0;
+        for(int i=0;i<n;i++){ // using catlen number
+            sum+=solveOpt(i)*solveOpt(n-i-1);
+        }
+        return sum;
+    }
     int numTrees(int n) {
         //return solveRec(n);
-         memset(dp,0,sizeof(dp));
+         //memset(dp,0,sizeof(dp));
         // return solveMem(n);
-        return solveTab(n);
+        //return solveTab(n);
+        return solveOpt(n);
     }
 };
