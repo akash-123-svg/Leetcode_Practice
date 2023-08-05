@@ -1,6 +1,6 @@
 class Solution {
 public:
-    int dp[20];
+    int dp[22];
     int solveRec(int n){
         if(n<=1) return 1;
         int sum=0;
@@ -18,9 +18,20 @@ public:
         }
         return dp[n]=sum;
     }
+    int solveTab(int n){
+        dp[0]=1;
+        dp[1]=1;
+        for(int i=2;i<=n;i++){ // for no.of node
+            for(int j=1;j<=i;j++){ // for root node
+              dp[i]+=dp[j-1]*dp[i-j];
+            }
+        }
+        return dp[n];
+    }
     int numTrees(int n) {
         //return solveRec(n);
-        memset(dp,-1,sizeof(dp));
-        return solveMem(n);
+         memset(dp,0,sizeof(dp));
+        // return solveMem(n);
+        return solveTab(n);
     }
 };
