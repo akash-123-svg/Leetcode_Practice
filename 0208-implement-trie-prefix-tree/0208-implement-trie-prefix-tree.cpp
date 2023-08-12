@@ -3,7 +3,6 @@ public:
     char data;
     TrieNode* children[26];
     bool isTerminal;
-    
     TrieNode(char ch){
         data=ch;
         for(int i=0;i<26;i++){
@@ -16,73 +15,57 @@ class Trie {
 public:
     TrieNode*root;
     Trie() {
-      root=new TrieNode('\0');
+       root=new TrieNode('\0');
     }
     void insertUtil(TrieNode* root,string word){
-        // base case
         if(word.length()==0){
             root->isTerminal=true;
             return;
         }
         int index=word[0]-'a';
         TrieNode*child;
-        
-        // present 
-        if(root->children[index] !=NULL){
+        if(root->children[index]!=NULL){
             child=root->children[index];
-            
         }else{
-            child = new TrieNode(word[0]);
+            child=new TrieNode(word[0]);
             root->children[index]=child;
         }
-        
-        // Recursion call
         insertUtil(child,word.substr(1));
     }
     void insert(string word) {
-       insertUtil(root,word);
+        insertUtil(root,word);
     }
     bool searchUtil(TrieNode* root,string word){
-        // base case
         if(word.length()==0){
             return root->isTerminal;
         }
         int index=word[0]-'a';
-        TrieNode* child;
-        
-        // present
+        TrieNode*child;
         if(root->children[index]!=NULL){
             child=root->children[index];
         }else{
-            return false;   // absent
+            return false;
         }
-        
-        // Recursion call
         return searchUtil(child,word.substr(1));
     }
     bool search(string word) {
        return searchUtil(root,word); 
     }
-    bool startsWithUtil(TrieNode* root,string word){
-        // base case
+    bool searchWithUtil(TrieNode* root,string word){
         if(word.length()==0){
             return true;
         }
         int index=word[0]-'a';
-        TrieNode* child;
-        
-        // present
+        TrieNode*child;
         if(root->children[index]!=NULL){
             child=root->children[index];
         }else{
-            return false;   // absent
+            return false;
         }
-        
-        // Recursion call
-        return startsWithUtil(child,word.substr(1));
+        return searchWithUtil(child,word.substr(1));
     }
     bool startsWith(string prefix) {
-        return startsWithUtil(root,prefix);
+        return searchWithUtil(root,prefix);
     }
 };
 
