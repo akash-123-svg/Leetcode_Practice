@@ -23,7 +23,7 @@ public:
         if(cnt==n){  // I was able to finish all the nodes (courses)
             return true;
         }
-        return false;
+        return false; // Means there was a cycle and I couldn't complete all courses.
     }
     bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
         int n=numCourses;
