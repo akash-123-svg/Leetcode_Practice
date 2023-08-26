@@ -24,7 +24,7 @@ public:
             return 0;
         }
         if(dp[currIndex][prevIndex+1]!=-1) return dp[currIndex][prevIndex+1];
-        // include
+        // take
         int take=0;
         if(prevIndex==-1 || nums[currIndex][0]>nums[prevIndex][1]){
             take=1+solveMem(nums,currIndex+1,currIndex);
@@ -40,7 +40,7 @@ public:
         int n=nums.size();
         for(int currIndex=n-1;currIndex>=0;currIndex--){
             for(int prevIndex=currIndex-1;prevIndex>=-1; prevIndex--){
-                // include
+                // take
                  int take=0;
                  if(prevIndex==-1 || nums[currIndex][0]>nums[prevIndex][1]){
                  take=1+dp[currIndex+1][currIndex+1];
@@ -59,7 +59,7 @@ public:
         vector<int> nextRow(n+1,0);
         for(int currIndex=n-1;currIndex>=0;currIndex--){
             for(int prevIndex=currIndex-1;prevIndex>=-1; prevIndex--){
-                // include
+                // take
                  int take=0;
                  if(prevIndex==-1 || nums[currIndex][0]>nums[prevIndex][1]){
                  take=1+nextRow[currIndex+1];
@@ -74,11 +74,11 @@ public:
         return nextRow[0];
     }
     int findLongestChain(vector<vector<int>>& pairs) {
-        sort(pairs.begin(),pairs.end());
+         sort(pairs.begin(),pairs.end());
         //return solveRec(pairs,0,-1);
-         memset(dp,-1,sizeof(dp));
-         return solveMem(pairs,0,-1);
-        //return solveTab(nums);
+         memset(dp,0,sizeof(dp));
+         //return solveMem(pairs,0,-1);
+         return solveTab(pairs);
         //return solveOpt(nums);
     }
 };
