@@ -41,6 +41,7 @@ public:
             // b--->a
             adj[b].push_back(a);
             
+            // arrow 'a' me ja raha hai
             indegree[a]++;
         }
         return TopoSort(adj,n,indegree);
