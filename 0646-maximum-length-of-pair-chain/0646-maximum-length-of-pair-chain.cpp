@@ -76,9 +76,9 @@ public:
     int findLongestChain(vector<vector<int>>& pairs) {
          sort(pairs.begin(),pairs.end());
         //return solveRec(pairs,0,-1);
-         memset(dp,0,sizeof(dp));
+        // memset(dp,0,sizeof(dp));
          //return solveMem(pairs,0,-1);
-         return solveTab(pairs);
-        //return solveOpt(nums);
+         //return solveTab(pairs);
+         return solveOpt(pairs);
     }
 };
