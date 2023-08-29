@@ -16,6 +16,7 @@ public:
         };
         vector<vector<int>> res(m,vector<int>(n,INT_MAX));
         
+        // apply dijkstra algorithm here
         priority_queue<P,vector<P>,greater<P>> pq;
         
         pq.push({0,{0,0}});
