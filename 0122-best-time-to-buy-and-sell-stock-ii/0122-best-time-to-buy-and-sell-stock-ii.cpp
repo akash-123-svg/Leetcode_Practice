@@ -36,9 +36,30 @@ public:
         }
         return dp[index][buy]=max_profit;
     }
+    int solveTab(vector<int>&prices){
+         int n=prices.size();
+         memset(dp,0,sizeof(dp));
+         for(int index=n-1;index>=0;index--){
+             for(int buy=0;buy<=1;buy++){
+                 int max_profit=0;
+                 if(buy==1){
+                   int buykaro=(-prices[index])+dp[index+1][0];
+                   int skipkaro=0+dp[index+1][1];
+                   max_profit=max(buykaro,skipkaro);
+                  }else{
+                   int sellkaro=(prices[index])+dp[index+1][1];
+                   int skipkaro=0+dp[index+1][0];
+                   max_profit=max(sellkaro,skipkaro);
+                 }
+                dp[index][buy]=max_profit;
+             }
+         }
+        return dp[0][1];
+    }
     int maxProfit(vector<int>& prices) {
         //return solveRec(prices,0,1);
-        memset(dp,-1,sizeof(dp));
-        return solveMem(prices,0,1);
+        // memset(dp,-1,sizeof(dp));
+        // return solveMem(prices,0,1);
+        return solveTab(prices);
     }
 };
