@@ -20,14 +20,32 @@ public:
         int result=max(left_subtree,right_subtree)+1;
         return result;
     }
-    int diameterOfBinaryTree(TreeNode* root) {
+    pair<int,int> daimeterfast(TreeNode* root){  // <daimeter,height>
         if(root==NULL){
-            return 0;
+            pair<int,int> p=make_pair(0,0);
+            return p;
         }
-        int op1=diameterOfBinaryTree(root->left);
-        int op2=diameterOfBinaryTree(root->right);
-        int op3=height(root->left)+height(root->right);
-        int ans=max(op1,max(op2,op3));
+        pair<int,int> left_subtree=daimeterfast(root->left);
+        pair<int,int> right_subtree=daimeterfast(root->right);
+        
+        int op1=left_subtree.first;
+        int op2=right_subtree.first;
+        int op3=left_subtree.second+right_subtree.second;
+        
+        pair<int,int> ans;
+        ans.first=max({op1,op2,op3});
+        ans.second=max(left_subtree.second,right_subtree.second)+1;
         return ans;
+    }
+    int diameterOfBinaryTree(TreeNode* root) {
+        // if(root==NULL){
+        //     return 0;
+        // }
+        // int op1=diameterOfBinaryTree(root->left);
+        // int op2=diameterOfBinaryTree(root->right);
+        // int op3=height(root->left)+height(root->right);
+        // int ans=max(op1,max(op2,op3));
+        // return ans;
+        return daimeterfast(root).first;
     }
 };
