@@ -1,9 +1,9 @@
 class Solution {
 public:
-    vector<int> TopoSort(unordered_map<int,vector<int>> &adj,int n,vector<int> &indegree){
+    vector<int>Toposort(unordered_map<int,vector<int>>&adj,int n,vector<int>&indegree){
         queue<int> q;
-        int cnt=0;
         vector<int> ans;
+        int cnt=0;
         for(int i=0;i<n;i++){
             if(indegree[i]==0){
                 ans.push_back(i);
@@ -15,7 +15,7 @@ public:
             int u=q.front();
             q.pop();
             
-            for(int &v:adj[u]){
+            for(auto &v:adj[u]){
                 indegree[v]--;
                 if(indegree[v]==0){
                     ans.push_back(v);
@@ -31,19 +31,14 @@ public:
     }
     vector<int> findOrder(int numCourses, vector<vector<int>>& prerequisites) {
         int n=numCourses;
-        unordered_map<int,vector<int>> adj;
+        unordered_map<int,vector<int>>adj;
         vector<int> indegree(n,0);
-        
-        for(auto &vec:prerequisites){
-            int a=vec[0];
-            int b=vec[1];
-            
-            // b--->a
-            adj[b].push_back(a);
-            
-            // arrow 'a' me ja raha hai
-            indegree[a]++;
+        for(auto &vec: prerequisites){
+            int u=vec[0];
+            int v=vec[1];
+            adj[v].push_back(u);
+            indegree[u]++;
         }
-        return TopoSort(adj,n,indegree);
+        return Toposort(adj,n,indegree);
     }
 };
