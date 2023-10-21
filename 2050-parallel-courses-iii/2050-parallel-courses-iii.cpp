@@ -1,7 +1,7 @@
 class Solution {
 public:
     int minimumTime(int n, vector<vector<int>>& relations, vector<int>& time) {
-        unordered_map<int,vector<int>>adj;
+        unordered_map<int,vector<int>> adj;
         vector<int> indegree(n,0);
         for(int i=0;i<relations.size();i++){
             int u=relations[i][0]-1;
@@ -10,25 +10,26 @@ public:
             indegree[v]++;
         }
         queue<int> q;
-        vector<int> Max_time(n,0);
+        vector<int> max_time(n,0);
+        int cnt=0;
         for(int i=0;i<n;i++){
             if(indegree[i]==0){
                 q.push(i);
-                Max_time[i]=time[i];
+                max_time[i]=time[i];
             }
         }
         while(!q.empty()){
             int sz=q.front();
             q.pop();
             
-            for(auto &v:adj[sz]){
-                Max_time[v]=max(Max_time[v],Max_time[sz]+time[v]);
-                indegree[v]--;
-                if(indegree[v]==0){
-                    q.push(v);
+            for(auto &vec: adj[sz]){
+                max_time[vec]=max(max_time[vec],max_time[sz]+time[vec]);
+                indegree[vec]--;
+                if(indegree[vec]==0){
+                    q.push(vec);
                 }
             }
         }
-        return *max_element(Max_time.begin(),Max_time.end());
+        return *max_element(max_time.begin(),max_time.end());
     }
 };
