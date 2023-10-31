@@ -9,8 +9,8 @@ public:
             adj[a].push_back({b,c});
             adj[b].push_back({a,c});
         }
-        priority_queue<pair<double,int>>pq;
-        vector<double>ans(n,INT_MIN);
+        priority_queue<pair<double,int>> pq;
+        vector<double> ans(n,INT_MIN);
         ans[start_node]=1.0;
         pq.push({1.0,start_node});
         
@@ -22,17 +22,18 @@ public:
             
             for(auto &v: adj[node]){
                 int adjNode=v.first;
-                double wt=v.second;
-                if(d*wt > ans[adjNode]){
-                    ans[adjNode]=d*wt;
+                double dis=v.second;
+                if(d*dis > ans[adjNode]){
+                    ans[adjNode]=d*dis;
                     pq.push({ans[adjNode],adjNode});
                 }
             }
         }
         if(ans[end_node]==INT_MIN){
-            return 0.00000;
+            return 0.00000; 
         }else{
             return ans[end_node];
         }
+        
     }
 };
