@@ -8,9 +8,9 @@ public:
             int wt=vec[2];
             adj[u].push_back({v,wt});
         }
-        priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>> pq;
-        vector<int> res(n+1,INT_MAX);
-        res[k]=0;
+        priority_queue<pair<int,int>,vector<pair<int,int>>, greater<pair<int,int>>> pq;
+        vector<int> ans(n+1,INT_MAX);
+        ans[k]=0;
         pq.push({0,k});
         
         while(!pq.empty()){
@@ -20,22 +20,22 @@ public:
             
             for(auto &vec: adj[node]){
                 int adjNode=vec.first;
-                int wt=vec.second;
+                int dis=vec.second;
                 
-                if(d+wt < res[adjNode]){
-                    res[adjNode]=d+wt;
-                    pq.push({d+wt,adjNode});
+                if(d+dis < ans[adjNode]){
+                    ans[adjNode]=d+dis;
+                    pq.push({d+dis,adjNode});
                 }
             }
         }
-        int ans=INT_MIN;
+        int res=INT_MIN;
         for(int i=1;i<=n;i++){
-            ans=max(ans,res[i]);
+            res=max(res,ans[i]);
         }
-        if(ans==INT_MAX){
+        if(res==INT_MAX){
             return -1;
         }else{
-            return ans;
+            return res;
         }
     }
 };
