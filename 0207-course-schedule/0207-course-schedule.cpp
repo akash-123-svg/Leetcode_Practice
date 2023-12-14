@@ -1,6 +1,6 @@
 class Solution {
 public:
-    bool Toposort(int n,vector<vector<int>>& prerequisites,vector<int>&indegree,map<int,vector<int>>&adj){
+    bool Toposort(int n,vector<vector<int>>& prerequisites, vector<int>&indegree, unordered_map<int,vector<int>>&adj){
         queue<int> q;
         int cnt=0;
         for(int i=0;i<n;i++){
@@ -20,13 +20,17 @@ public:
                 }
             }
         }
-        return cnt==n;  
+        if(cnt==n){
+            return true;
+        }else{
+            return false;
+        }
     }
     bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
         int n=numCourses;
-        map<int,vector<int>> adj;
         vector<int> indegree(n,0);
-        for(auto &vec : prerequisites){
+        unordered_map<int,vector<int>> adj;
+        for(auto &vec: prerequisites){
             int a=vec[0];
             int b=vec[1];
             adj[b].push_back(a);
