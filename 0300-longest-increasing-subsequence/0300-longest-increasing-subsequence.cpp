@@ -1,19 +1,35 @@
 class Solution {
 public:
-    int lengthOfLIS(vector<int>& nums) {
-       int n=nums.size();
-        if(n==0) return 0;
-        vector<int> ans;
-        ans.push_back(nums[0]);
-        for(int i=1;i<n;i++){
-            if(nums[i]>ans.back()){
-                ans.push_back(nums[i]);
-            }else{
-                // we just find the bada index in ans
-                int badaidx=lower_bound(ans.begin(),ans.end(),nums[i])-ans.begin();
-                ans[badaidx]=nums[i];
-            }
+    int dp[2501][2501];
+    int solve(int i,int prev,vector<int>&nums){
+        if(i>=nums.size()){
+            return 0;
         }
-        return ans.size();
+        int take=0,skip=0;
+        if(prev==-1 || nums[prev]<nums[i]){
+            take=1+solve(i+1,i,nums);
+        }
+        skip=solve(i+1,prev,nums);
+        return max(take,skip);
+    }
+    int solveMem(int i,int prev,vector<int>&nums){
+        if(i>=nums.size()){
+            return 0;
+        }
+        if(prev!=-1 && dp[i][prev]!=-1){
+            return dp[i][prev];
+        }
+        int take=0,skip=0;
+        if(prev==-1 || nums[prev]<nums[i]){
+            take=1+solveMem(i+1,i,nums);
+        }
+        skip=solveMem(i+1,prev,nums);
+        if(prev!=-1) dp[i][prev]=max(take,skip);
+        
+        return max(take,skip);
+    }
+    int lengthOfLIS(vector<int>& nums) {
+        memset(dp,-1,sizeof(dp));
+        return solveMem(0,-1,nums);
     }
 };
