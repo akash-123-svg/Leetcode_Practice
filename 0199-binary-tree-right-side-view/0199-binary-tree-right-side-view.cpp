@@ -20,7 +20,20 @@ public:
     vector<int> rightSideView(TreeNode* root) {
         vector<int> ans;
         if(!root) return ans;
-        Rview(root, 0,ans);
+        //Rview(root, 0,ans);
+        queue<TreeNode*> q;
+        q.push(root);
+        while(!q.empty()){
+            ans.push_back(q.front()->val);
+            int n=q.size();
+            while(n--){
+                TreeNode*temp=q.front();
+                q.pop();
+                
+                if(temp->right) q.push(temp->right);
+                if(temp->left) q.push(temp->left);
+            }
+        }
         return ans;
     }
 };
