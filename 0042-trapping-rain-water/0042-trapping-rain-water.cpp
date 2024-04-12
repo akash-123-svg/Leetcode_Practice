@@ -20,6 +20,6 @@ public:
       for(int i=0;i<n;i++){
           waterTrapped+=water[i];
       }
-      return waterTrapped;
+      return waterTrapped; 
     }
 };
