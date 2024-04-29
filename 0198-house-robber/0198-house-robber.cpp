@@ -1,25 +1,23 @@
 class Solution {
 public:
-    int dp[101];
-    int solveRec(vector<int>& nums,int n){
+    int solve(int n, vector<int>& nums){
         if(n<0) return 0;
         if(n==0) return nums[0];
-        int take=nums[n]+solveRec(nums,n-2);
-        int notake=0+solveRec(nums,n-1);
+        int take=nums[n]+solve(n-2,nums);
+        int notake=0+solve(n-1,nums);
         return max(take,notake);
     }
-    int solveMem(vector<int>& nums,int n){
+    int solveMemo(int n,vector<int>& nums,vector<int>& dp){
         if(n<0) return 0;
         if(n==0) return nums[0];
         if(dp[n]!=-1) return dp[n];
-        int take=nums[n]+solveMem(nums,n-2);
-        int notake=0+solveMem(nums,n-1);
+        int take=nums[n]+solveMemo(n-2,nums,dp);
+        int notake=0+solveMemo(n-1,nums,dp);
         return dp[n]=max(take,notake);
     }
     int rob(vector<int>& nums) {
         int n=nums.size();
-       // return solveRec(nums,n-1);
-        memset(dp,-1,sizeof(dp));
-        return solveMem(nums,n-1);
+        vector<int> dp(n+1,-1);
+        return solveMemo(n-1,nums,dp);
     }
 };
