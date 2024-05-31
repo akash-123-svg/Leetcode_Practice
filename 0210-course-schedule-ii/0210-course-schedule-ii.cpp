@@ -1,25 +1,26 @@
 class Solution {
 public:
-    vector<int>Toposort(int n,vector<vector<int>>& prerequisites,vector<int>&indegree, unordered_map<int,vector<int>>&adj){
-        vector<int> ans;
+    vector<int>Topo(int n, vector<vector<int>>& prerequisites, vector<int>& indegree, unordered_map<int,vector<int>>& adj){
         queue<int> q;
+        vector<int> ans;
         int cnt=0;
         for(int i=0;i<n;i++){
             if(indegree[i]==0){
                 cnt++;
-                ans.push_back(i);
                 q.push(i);
+                ans.push_back(i);
             }
         }
         while(!q.empty()){
             int f=q.front();
             q.pop();
-            for(auto &v: adj[f]){
-                indegree[v]--;
-                if(indegree[v]==0){
+            
+            for(auto &x: adj[f]){
+                indegree[x]--;
+                if(indegree[x]==0){
                     cnt++;
-                    ans.push_back(v);
-                    q.push(v);
+                    q.push(x);
+                    ans.push_back(x);
                 }
             }
         }
@@ -31,6 +32,7 @@ public:
     }
     vector<int> findOrder(int numCourses, vector<vector<int>>& prerequisites) {
         int n=numCourses;
+        vector<int> ans;
         vector<int> indegree(n,0);
         unordered_map<int,vector<int>>adj;
         for(auto &vec: prerequisites){
@@ -39,6 +41,6 @@ public:
             adj[b].push_back(a);
             indegree[a]++;
         }
-        return Toposort(n,prerequisites,indegree,adj);
+        return Topo(n,prerequisites,indegree, adj);
     }
 };
