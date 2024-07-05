@@ -39,4 +39,6 @@ public:
         
         return{minDiff, maxDiff};
     }
+    // Time:- O(n)
+    // space:- O(1)
 };
