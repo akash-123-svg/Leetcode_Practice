@@ -1,18 +1,18 @@
 class Solution {
 public:
-    vector<int> findOrder(int numCourses, vector<vector<int>>& prerequisites) {
+    vector<int> findOrder(int numCourses, vector<vector<int>>& pre) {
         vector<int> ans;
         int n=numCourses;
-        unordered_map<int,vector<int>>adj;
+        unordered_map<int,vector<int>> adj;
         vector<int> indegree(n,0);
-        for(auto &vec: prerequisites){
+        for(auto &vec: pre){
             int u=vec[0];
             int v=vec[1];
             adj[v].push_back(u);
             indegree[u]++;
         }
-        queue<int> q;
         int cnt=0;
+        queue<int> q;
         for(int i=0;i<n;i++){
             if(indegree[i]==0){
                 q.push(i);
@@ -33,10 +33,7 @@ public:
                 }
             }
         }
-        if(cnt==n){
-            return ans;
-        }else{
-            return {};
-        }
+        if(cnt==n) return ans;
+        else return {};
     }
 };
