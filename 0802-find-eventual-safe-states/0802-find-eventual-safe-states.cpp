@@ -1,9 +1,10 @@
 class Solution {
 public:
     vector<int> eventualSafeNodes(vector<vector<int>>& graph) {
+        vector<int> safeNode;
         int n=graph.size();
-        vector<int> indegree(n,0);
         vector<int> adj[n];
+        vector<int> indegree(n,0);
         for(int i=0;i<n;i++){
             for(auto &vec: graph[i]){
                 adj[vec].push_back(i);
@@ -16,20 +17,19 @@ public:
                 q.push(i);
             }
         }
-        vector<int> ans;
         while(!q.empty()){
-            int node=q.front();
-            ans.push_back(node);
+            int sz=q.front();
             q.pop();
+            safeNode.push_back(sz);
             
-            for(auto &v: adj[node]){
-                indegree[v]--;
-                if(indegree[v]==0){
-                    q.push(v);
+            for(auto &vec: adj[sz]){
+                indegree[vec]--;
+                if(indegree[vec]==0){
+                    q.push(vec);
                 }
             }
         }
-        sort(ans.begin(),ans.end());
-        return ans;
+        sort(safeNode.begin(),safeNode.end());
+        return safeNode;
     }
 };
